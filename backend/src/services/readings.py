@@ -38,6 +38,6 @@ def normalize(readings,start_at,end_at):
   if reason:excluded.append({"timestamp":row["timestamp"],"reason":reason});continue
   intensity=row["kwh"]/row["output_kg"]
   if not math.isfinite(intensity):raise ValueError("归一能耗非有限，检查极小产量")
-  valid.append({**row,"intensity":intensity})
+  valid.append({**row,"intensity":intensity,"output":row["output_kg"]})
  if len(valid)<8:raise ValueError("窗口内至少需要8条有效运行观测；停机、零产量与缺测已隔离")
  return valid,excluded
